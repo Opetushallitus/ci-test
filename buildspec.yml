@@ -24,8 +24,8 @@ phases:
       - mvn install
   post_build:
     commands:
-      - ls -la
       - printenv
+      - ls -la target
 
 #artifacts:
 #  files:
