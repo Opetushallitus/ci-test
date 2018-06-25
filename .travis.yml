@@ -1,0 +1,18 @@
+language: java
+
+install:
+  - whoami
+  - pwd
+  - ls -la
+  - printenv
+  - uname -a
+  - lsb_release -a
+  - df -h
+  - mount
+
+script:
+  - mvn -v
+  - cd spring-boot-helloworld
+  - mvn install
+  - printenv
+  - ls -la target
