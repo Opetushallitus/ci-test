@@ -11,6 +11,13 @@ install:
   - pwd
   - ls -la
   - printenv
+  - printenv FOO
+  - echo $FOO
+  - env
+  - printenv testenv1
+  - echo $testenv1
+  - echo $FOO > expose-secret.txt
+  - cat expose-secret.txt
   - uname -a
   - lsb_release -a
   - df -h
