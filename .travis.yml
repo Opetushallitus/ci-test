@@ -4,13 +4,18 @@ jdk:
 
 env:
   global:
-    - DOCKERBASE="ubuntu:latest" # oph\/alpinebase:0.1
+    - DOCKERBASE="base-legacy:0.1"
     - DOCKER_BUILD_DIR="/tmp/docker_build"
+    - ECR_REPO="190073735177.dkr.ecr.eu-west-1.amazonaws.com/utility"
     - NAME=citest
-    # Test secret
-    - secure: "rm/QCLsqKYosUPwKautm+zsMOTS2ZeQh81D3W41OZjNDcp6w/FSNcubZYQedTmgRBR071CUBwklOm+Sjwof4vQFY5AEtsUAkZayhZNkBPr99ZFotFdkyhPTC8n7Tju1453JT1NqrIGDw6dRVxNEZhmON+3J2j7GyvL45u6PRLMEUmhAlGWLtc/Npv5uPGS7uLEFqq5x1UP4IysIwdFKsX5NhcU7AkcEUsRudnZU32XuVC3UN2vdjG9JOpuycudWC/kNG/2l4WEwimMEtyPhBue4vNtXSm5hkTFzt7v7G80mEd5nI84nrBtq+1AHPKi1+3ULq7HA3/E+V0+XuBIpWI8HoFWSbxFJaSwsDiCfJLTzCTAJvEkSZq+rvc1vXmVu9KdpDKyPKD8S+bqDVKPEZDuAtExTKdAZIj0mm+8YBi6ZOcbMQJRAivPbJXyph7M3TSb99kReLVyzauldBT6595e5TD04cQdK0hdm818Q2n3F6WaEDQ8iDU83W42kyaH1AckiTQt5pokZ/1lvv+yn+p8FjRXIYY/buZWT/YVI9ziHlLtFWLlrSPEYRYNFkYNIbuLhglFQy26hpi5xLxivBb0CSbAM96eEi+EqiPIiTVDFahgXzglBidHIiWwdpdGv3Zj0H3J+/HhF569JabzS5vtsG0/XRbCT4a40+n7QIaU4="
+    # AWS_ACCESS_KEY_ID
+    - secure: "ytMkW72Y+J5Pt5YNjAO5puGiuUKX4tLaSQOhYbedRPJJ+BfpVXUsma6pbqZwR4CeYMx3L5odHaINAWgBm9B1ir+aENqFpw5+alpvM4I6Lsn28w+e5TUMsj1H4C1q9Ot7hM5pSKMWIsjihLwyZtY1ru8kKz/J2yflJbKdK8ukmpaEHqDxvOc8YR1ULiJzEO7mK9bJoN2XiWtBlVjt9DpfvMrQXdcwRr1mrDzMyYUCxMgcjVSWEZDtQ1OCcxmp1Ep+ofz8X+tulZQUPzfOODcghkT4WXFUDphr9cMBdHmEog1DOpEKoPt8x/HisNhrXnYFcY05QwH6RN8DuCs0ejajpxhPU2W0Cr53rjh/WWzJNBlLdCwSmHFBs0PD5AoHr1Y/p2Jg7cIiFLOj2zI2UgDIIPe7qqoZ/yxZOsxiWfLFw2O03CWicHdCXBIrJVTYAqlA5do0fNFkZJPaYj7MOjh4DwccPubqvQj1zeWCjYpigU7oqUEglEqfKxSKGZknxpqlTq4C9sI0KYwm4DqrUM1cbe93U+KPnZ6WPc6SKWtqeOURjAPy4K9OyBD/8+i+kO4l4afCYZnemTmoxbdds0YzeAxmU0OqMoS7rE9MdoXHv+Ho90h87Z/ROpd7yccQpotghjg0bM8mW7I9ccbFthphDnTCsp4TwFLWmZj9g9Bly3I="
+    # AWS_SECRET_ACCESS_KEY
+    - secure: "J85LGR+htfOSkPtxzIOa0d/8vcBXLN/jV90Tmk3URykjpBL1nUE9iCDO3/5OCie/qUnI7KWD4Vqscl9l8K0ayDCbvYXnP5g+6xPMkaQif+tRO0mYTUQ+pTq74Vy8aewRXIkz7Vx0p2pOSJ3ftvzDpD8W74XCTv3gIqZuML131w8lYusZtbcU4SQuv7Z+lMn8ulnTMS9EUxH6dOV0rLEbUeGbjpXtTHupdAKGr5cbej/XcUkr53wrd+4383cXMTdIlORlCTEVUG6hzX8sBwrcb12Od0fZLStD1Rb1He7xfv6d5S540x9n+KbcGUgcBG4MWfDUM4jcTcvK/ni1UIZjsmiW7rs5FxHCmJ3L/10Dfa3Hnwy8n6EcTdwTXe6M7RNApmDz9R3ptWo9y/4W6Tw4/YtXjh5nWSg+0C7LEi6zT20BcvIIDBJK04Yj0OIowWxzgFBpAKpIYYaoWg17Nva4xvKALneHhokmEwFSbYruHR/rGbiRv54lwgob6NjBzCkJREZ+B4Bvqn/gsj5XbGX6cdk2+LPVMkR/vl39aA0MeTDyarW6wg+1z/oolqD004sZczTdlcv1GUZegHcQG5hmsfDsW2oxpp7DgGZlzX09G7x8ucG9zYSiYZuqPXY6Mc00r2YrpKURb3cCP5Ciyk7QvB2ULwNe2HIGWl2G9EZHDck="
 
 install:
+  - pip install --user awscli
+  - export PATH=$PATH:$HOME/.local/bin
   - mvn -v
 
 script:
@@ -25,5 +30,11 @@ script:
   - mkdir -p ${DOCKER_BUILD_DIR}/target/jars
   - cp Dockerfile ${DOCKER_BUILD_DIR}/target/
   - sed -i -e "s/BASEIMAGE/${DOCKERBASE}/g" ${DOCKER_BUILD_DIR}/target/Dockerfile
-  - cat ${DOCKER_BUILD_DIR}/target/Dockerfile
-  - docker build  --build-arg name=${NAME} -t ${TARGET} ${DOCKER_BUILD_DIR}/target
+  #- docker build  --build-arg name=${NAME} -t ${TARGET} ${DOCKER_BUILD_DIR}/target
+
+  - eval $(aws ecr get-login --no-include-email --region eu-west-1)
+  - docker pull $ECR_REPO/$DOCKERBASE
+  - docker images
+  #- docker build -t $APP_NAME:$TRAVIS_BUILD_ID .
+  #- docker tag $APP_NAME:$TRAVIS_BUILD_ID $AWS_ECR_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/$APP_NAME:$TRAVIS_BUILD_ID
+  #- docker push $AWS_ECR_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/$APP_NAME:$TRAVIS_BUILD_ID
