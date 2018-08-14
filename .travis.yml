@@ -17,6 +17,7 @@ script:
   - cd spring-boot-helloworld
   - mvn install
   - ls -la target
+  - cd ..
 
   # Setup Docker build directory
   - rm -rf ${DOCKER_BUILD_DIR}/target
