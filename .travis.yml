@@ -34,7 +34,7 @@ script:
   - mkdir -p ${DOCKER_BUILD_DIR}/target/config
   - mkdir -p ${DOCKER_BUILD_DIR}/target/jars
   - cp Dockerfile ${DOCKER_BUILD_DIR}/target/
-  - sed -i -e "s/BASEIMAGE/${DOCKERBASE}/g" ${DOCKER_BUILD_DIR}/target/Dockerfile
+  - sed -i -e "s|BASEIMAGE|${ECR_REPO}/${DOCKERBASE}|g" ${DOCKER_BUILD_DIR}/target/Dockerfile
   - docker build  --build-arg name=${NAME} -t ${TARGET} ${DOCKER_BUILD_DIR}/target
   - docker images
 
