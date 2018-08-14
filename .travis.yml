@@ -8,6 +8,7 @@ env:
     - DOCKER_BUILD_DIR="/tmp/docker_build"
     - ECR_REPO="190073735177.dkr.ecr.eu-west-1.amazonaws.com/utility"
     - NAME=citest
+    - TARGET=citesttarget
     # AWS_ACCESS_KEY_ID
     - secure: "ytMkW72Y+J5Pt5YNjAO5puGiuUKX4tLaSQOhYbedRPJJ+BfpVXUsma6pbqZwR4CeYMx3L5odHaINAWgBm9B1ir+aENqFpw5+alpvM4I6Lsn28w+e5TUMsj1H4C1q9Ot7hM5pSKMWIsjihLwyZtY1ru8kKz/J2yflJbKdK8ukmpaEHqDxvOc8YR1ULiJzEO7mK9bJoN2XiWtBlVjt9DpfvMrQXdcwRr1mrDzMyYUCxMgcjVSWEZDtQ1OCcxmp1Ep+ofz8X+tulZQUPzfOODcghkT4WXFUDphr9cMBdHmEog1DOpEKoPt8x/HisNhrXnYFcY05QwH6RN8DuCs0ejajpxhPU2W0Cr53rjh/WWzJNBlLdCwSmHFBs0PD5AoHr1Y/p2Jg7cIiFLOj2zI2UgDIIPe7qqoZ/yxZOsxiWfLFw2O03CWicHdCXBIrJVTYAqlA5do0fNFkZJPaYj7MOjh4DwccPubqvQj1zeWCjYpigU7oqUEglEqfKxSKGZknxpqlTq4C9sI0KYwm4DqrUM1cbe93U+KPnZ6WPc6SKWtqeOURjAPy4K9OyBD/8+i+kO4l4afCYZnemTmoxbdds0YzeAxmU0OqMoS7rE9MdoXHv+Ho90h87Z/ROpd7yccQpotghjg0bM8mW7I9ccbFthphDnTCsp4TwFLWmZj9g9Bly3I="
     # AWS_SECRET_ACCESS_KEY
@@ -24,17 +25,18 @@ script:
   - ls -la target
   - cd ..
 
+  # Login to ECR and download base image
+  - eval $(aws ecr get-login --no-include-email --region eu-west-1)
+  - docker pull $ECR_REPO/$DOCKERBASE
+
   # Setup Docker build directory
   - rm -rf ${DOCKER_BUILD_DIR}/target
   - mkdir -p ${DOCKER_BUILD_DIR}/target/config
   - mkdir -p ${DOCKER_BUILD_DIR}/target/jars
   - cp Dockerfile ${DOCKER_BUILD_DIR}/target/
   - sed -i -e "s/BASEIMAGE/${DOCKERBASE}/g" ${DOCKER_BUILD_DIR}/target/Dockerfile
-  #- docker build  --build-arg name=${NAME} -t ${TARGET} ${DOCKER_BUILD_DIR}/target
-
-  - eval $(aws ecr get-login --no-include-email --region eu-west-1)
-  - docker pull $ECR_REPO/$DOCKERBASE
+  - docker build  --build-arg name=${NAME} -t ${TARGET} ${DOCKER_BUILD_DIR}/target
   - docker images
-  #- docker build -t $APP_NAME:$TRAVIS_BUILD_ID .
+
   #- docker tag $APP_NAME:$TRAVIS_BUILD_ID $AWS_ECR_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/$APP_NAME:$TRAVIS_BUILD_ID
   #- docker push $AWS_ECR_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/$APP_NAME:$TRAVIS_BUILD_ID
