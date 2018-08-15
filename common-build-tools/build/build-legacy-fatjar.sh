@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
 export ARTIFACT_NAME=$1
+export ECR_REPO="190073735177.dkr.ecr.eu-west-1.amazonaws.com/utility"
 export DOCKER_TARGET="$ECR_REPO/${ARTIFACT_NAME}:${TRAVIS_BUILD_NUMBER}"
 export DOCKER_BUILD_DIR="/tmp/docker_build"
 
