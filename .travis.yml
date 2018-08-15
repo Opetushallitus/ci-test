@@ -24,7 +24,8 @@ script:
   - cd ..
 
   - ./common-build-tools/build/ecr-login.sh
-  - ./common-build-tools/build/pull-image.sh base-legacy:0.1
+  - export BASE_IMAGE="base-legacy:0.1"
+  - ./common-build-tools/build/pull-image.sh
   - ./common-build-tools/build/build-legacy-fatjar.sh ci-test
 
   #- docker tag $APP_NAME:$TRAVIS_BUILD_ID $AWS_ECR_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/$APP_NAME:$TRAVIS_BUILD_ID
