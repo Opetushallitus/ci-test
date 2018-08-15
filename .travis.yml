@@ -12,7 +12,7 @@ env:
 install:
   - pip install --user awscli
   - export PATH=$PATH:$HOME/.local/bin
-  - git clone git@github.com:Opetushallitus/ci-tools.git
+  - git clone https://github.com/Opetushallitus/ci-tools.git
 
 script:
   - cd spring-boot-helloworld
