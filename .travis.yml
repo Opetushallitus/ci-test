@@ -13,9 +13,8 @@ env:
     - secure: "J85LGR+htfOSkPtxzIOa0d/8vcBXLN/jV90Tmk3URykjpBL1nUE9iCDO3/5OCie/qUnI7KWD4Vqscl9l8K0ayDCbvYXnP5g+6xPMkaQif+tRO0mYTUQ+pTq74Vy8aewRXIkz7Vx0p2pOSJ3ftvzDpD8W74XCTv3gIqZuML131w8lYusZtbcU4SQuv7Z+lMn8ulnTMS9EUxH6dOV0rLEbUeGbjpXtTHupdAKGr5cbej/XcUkr53wrd+4383cXMTdIlORlCTEVUG6hzX8sBwrcb12Od0fZLStD1Rb1He7xfv6d5S540x9n+KbcGUgcBG4MWfDUM4jcTcvK/ni1UIZjsmiW7rs5FxHCmJ3L/10Dfa3Hnwy8n6EcTdwTXe6M7RNApmDz9R3ptWo9y/4W6Tw4/YtXjh5nWSg+0C7LEi6zT20BcvIIDBJK04Yj0OIowWxzgFBpAKpIYYaoWg17Nva4xvKALneHhokmEwFSbYruHR/rGbiRv54lwgob6NjBzCkJREZ+B4Bvqn/gsj5XbGX6cdk2+LPVMkR/vl39aA0MeTDyarW6wg+1z/oolqD004sZczTdlcv1GUZegHcQG5hmsfDsW2oxpp7DgGZlzX09G7x8ucG9zYSiYZuqPXY6Mc00r2YrpKURb3cCP5Ciyk7QvB2ULwNe2HIGWl2G9EZHDck="
 
 install:
-  - pip install --user awscli
-  - export PATH=$PATH:$HOME/.local/bin
   - git clone https://github.com/Opetushallitus/ci-tools.git
+  - ./common-build-tools/build/setup-common-tools.sh
 
 script:
   - cd spring-boot-helloworld
@@ -23,10 +22,6 @@ script:
   - ls -la target
   - cd ..
 
-  - ./common-build-tools/build/ecr-login.sh
   - export BASE_IMAGE="base-legacy:0.1"
   - ./common-build-tools/build/pull-image.sh
   - ./common-build-tools/build/build-legacy-fatjar.sh ci-test
-
-  #- docker tag $APP_NAME:$TRAVIS_BUILD_ID $AWS_ECR_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/$APP_NAME:$TRAVIS_BUILD_ID
-  #- docker push $AWS_ECR_ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/$APP_NAME:$TRAVIS_BUILD_ID
