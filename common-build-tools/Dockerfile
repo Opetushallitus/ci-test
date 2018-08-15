@@ -10,7 +10,6 @@ ADD config/ /root
 ADD wars/ /opt/tomcat/webapps/
 ADD jars/ /root
 ADD run /tmp/scripts/
-ADD known_hosts /root/.ssh/known_hosts
 
 RUN apk add tzdata
 RUN ln -sf /usr/share/zoneinfo/Europe/Helsinki /etc/localtime
