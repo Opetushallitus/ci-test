@@ -14,7 +14,7 @@ env:
 
 install:
   - git clone https://github.com/Opetushallitus/ci-tools.git
-  - ./ci-tools/common/setup-tools.sh
+  - source ci-tools/common/setup-tools.sh
 
 script:
   - cd spring-boot-helloworld
