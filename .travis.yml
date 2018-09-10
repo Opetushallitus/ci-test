@@ -18,8 +18,8 @@ install:
 
 script:
   - cd spring-boot-helloworld
-  - mvn install
-  - ls -la target
+  #- mvn install
+  #- ls -la target
   - cd ..
 
   - export BASE_IMAGE="base-legacy:0.1"
@@ -28,4 +28,4 @@ script:
 
 deploy:
   provider: script
-  script: ./ci-tools/build/upload-image.sh ci-test
+  script: pwd || ls -la || ./ci-tools/build/upload-image.sh ci-test
