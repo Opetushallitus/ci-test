@@ -28,4 +28,4 @@ script:
 
 deploy:
   provider: script
-  script: pwd || ls -la || ./ci-tools/build/upload-image.sh ci-test
+  script: pwd && ls -la && ./ci-tools/build/upload-image.sh ci-test
