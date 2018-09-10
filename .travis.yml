@@ -21,7 +21,7 @@ script:
   - dig artifactory.oph.ware.fi
   - ping -c 2 -W 2 artifactory.oph.ware.fi
   - cat /etc/hosts
-  - sudo sh -c "printf '%s artifactory.oph.ware.fi\n' $(dig +short artifactory.opintopolku.fi|head -n1) >> /etc/hosts"
+  - sudo sh -c "printf '\n%s artifactory.oph.ware.fi\n' $(dig +short artifactory.opintopolku.fi|head -n1) >> /etc/hosts"
   - cat /etc/hosts
   - dig artifactory.oph.ware.fi
   - ping -c 2 -W 2 artifactory.oph.ware.fi
