@@ -17,8 +17,10 @@ install:
   - source ci-tools/common/setup-tools.sh
   - dig artifactory.opintopolku.fi
   - dig artifactory.oph.ware.fi
+  - ping -c 2 -W 2 artifactory.oph.ware.fi
   - sudo sh -c "printf '%s artifactory.oph.ware.fi\n' $(dig +short artifactory.opintopolku.fi|head -n1) >> /etc/hosts"
   - dig artifactory.oph.ware.fi
+  - ping -c 2 -W 2 artifactory.oph.ware.fi
 
 script:
   - cd spring-boot-helloworld
