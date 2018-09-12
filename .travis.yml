@@ -4,6 +4,9 @@ jdk:
   - oraclejdk8
 services:
   - docker
+cache:
+  directories:
+    - $HOME/.m2
 
 env:
   global:
@@ -18,8 +21,8 @@ install:
 
 script:
   - cd spring-boot-helloworld
-  #- mvn install
-  #- ls -la target
+  - mvn clean install -B
+  - ls -la target
   - cd ..
 
   - export BASE_IMAGE="base-legacy:0.1"
