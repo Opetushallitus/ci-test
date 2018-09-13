@@ -20,15 +20,18 @@ install:
   - source ci-tools/common/setup-tools.sh
 
 script:
-  - cd spring-boot-helloworld
-  - mvn clean install -B
-  - ls -la target
-  - cd ..
+  #- cd spring-boot-helloworld
+  #- mvn clean install -B
+  #- ls -la target
+  #- cd ..
 
   - export BASE_IMAGE="base-legacy:0.1"
-  - ./ci-tools/common/pull-image.sh
-  - ./ci-tools/build/build-fatjar.sh ci-test
+  #- ./ci-tools/common/pull-image.sh
+  #- ./ci-tools/build/build-fatjar.sh ci-test
 
-deploy:
-  provider: script
-  script: ./ci-tools/build/upload-image.sh ci-test
+after_success:
+  - breakthisbuild
+
+#deploy:
+#  provider: script
+#  script: ./ci-tools/build/upload-image.sh ci-test
