@@ -28,11 +28,8 @@ script:
 
   - export BASE_IMAGE="baseimage-fatjar:master"
   - ./ci-tools/common/pull-image.sh
-  #- ./ci-tools/build/build-fatjar.sh ci-test
+  - ./ci-tools/build/build-fatjar.sh ci-test
 
-after_success:
-  - breakthisbuild
-
-#deploy:
-#  provider: script
-#  script: ./ci-tools/build/upload-image.sh ci-test
+deploy:
+  provider: script
+  script: ./ci-tools/build/upload-image.sh ci-test
