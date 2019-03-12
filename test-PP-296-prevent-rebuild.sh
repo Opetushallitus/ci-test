@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 set -o
 
@@ -15,6 +15,8 @@ PREVIOUS_BUILD_ID=$(echo $RESPONSE|jq -r ".Item.Build.S")
 
 if [[ $PREVIOUS_BUILD_ID == $BUILD_ID ]]; then
     echo "This seems to be a rebuild!"
+    echo "Do NOT press the 'Restart build' button in Travis CI under a previous build."
+    echo "Either push a new commit, or select 'Trigger build'."
     terminate_build
 else
     echo "This seems to be a new build"
